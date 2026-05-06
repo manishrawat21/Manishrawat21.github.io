@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANISH RAWAT // THREAT HUNTER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0e1a;
+            --bg-tertiary: #131825;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #0080ff;
+            --accent-red: #ff0055;
+            --accent-green: #00ff88;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a8b5;
+            --text-muted: #6b7280;
+            --glow-cyan: rgba(0, 240, 255, 0.4);
+            --glow-red: rgba(255, 0, 85, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridScroll 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Scanline effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 240, 255, 0.02) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section - Terminal Style */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .terminal-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 10vw, 7rem);
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            position: relative;
+            animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .name-highlight {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--accent-cyan);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.3s forwards;
+        }
+
+        .subtitle::before {
+            content: '> ';
+            color: var(--accent-red);
+        }
+
+        .hero-description {
+            max-width: 700px;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.5s forwards;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 0, 85, 0.1);
+            border: 1px solid var(--accent-red);
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            box-shadow: 0 0 30px var(--glow-red);
+            animation: pulse 2s ease-in-out infinite, fadeIn 0.8s 0.7s forwards;
+            opacity: 0;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.3; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px var(--glow-red); }
+            50% { box-shadow: 0 0 50px var(--glow-red), 0 0 80px var(--glow-red); }
+        }
+
+        /* Stats Grid - Forensic Data Display */
+        .stats-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .section-label::before {
+            content: '// ';
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 60px;
+            letter-spacing: -0.02em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 40px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .stat-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            line-height: 1;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        /* Attack Chain Visualization */
+        .attack-chain-section {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+        }
+
+        .attack-chain-container {
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 60px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attack-chain-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .chain-timeline {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .chain-step {
+            min-width: 250px;
+            background: var(--bg-secondary);
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s;
+            animation: fadeInUp 0.6s backwards;
+        }
+
+        .chain-step:nth-child(1) { animation-delay: 0.1s; }
+        .chain-step:nth-child(2) { animation-delay: 0.2s; }
+        .chain-step:nth-child(3) { animation-delay: 0.3s; }
+        .chain-step:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chain-step:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .step-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-red);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        .step-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .step-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .chain-arrow {
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        /* Code Block */
+        .code-section {
+            margin-top: 50px;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 240, 255, 0.05);
+            padding: 15px 25px;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-bottom: none;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-red);
+        }
+
+        .code-dot:nth-child(2) { background: #ffaa00; }
+        .code-dot:nth-child(3) { background: var(--accent-green); }
+
+        .code-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        pre {
+            background: #0d1117;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 30px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #e6edf3;
+        }
+
+        .code-comment { color: #8b949e; }
+        .code-keyword { color: #ff7b72; }
+        .code-string { color: #a5d6ff; }
+        .code-function { color: #d2a8ff; }
+        .code-number { color: #79c0ff; }
+
+        /* Detection Rules Showcase */
+        .rules-section {
+            padding: 100px 0;
+            background: var(--bg-primary);
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .rule-card {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 35px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .rule-card:hover {
+            border-left-color: var(--accent-red);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .rule-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .rule-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .rule-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .rule-meta {
+            display: flex;
+            gap: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
+
+        .rule-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Differentiator Section */
+        .differentiator-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .differentiator-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 12px;
+            padding: 60px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.2);
+        }
+
+        .differentiator-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.08), transparent 50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .differentiator-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .differentiator-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .differentiator-text {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .differentiator-highlight {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .cta-box {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 0 60px var(--glow-red);
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 30px;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 40px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border: 2px solid var(--accent-cyan);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px var(--glow-cyan);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .stats-grid,
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chain-timeline {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .chain-arrow {
+                transform: rotate(90deg);
+                align-self: center;
+            }
+
+            .attack-chain-container {
+                padding: 30px;
+            }
+
+            .differentiator-box,
+            .cta-box {
+                padding: 40px 25px;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="terminal-header">root@threat-hunter:~$ whoami</div>
+            <div class="glitch-wrapper">
+                <h1>
+                    <span class="name-highlight">MANISH RAWAT</span><br>
+                    DETECTION ENGINEER
+                </h1>
+            </div>
+            <div class="subtitle">hunt --mode=attack_chains --output=detections</div>
+            <p class="hero-description">
+                I don't chase alerts. I reconstruct adversary kill chains from 196,071 raw events, 
+                build zero-touch IR pipelines, and write detection rules that catch APT behavior 
+                before it completes. Every rule tested against actual attack simulation data. 
+                Every automation validated in production scenarios.
+            </p>
+            <div class="status-badge">AVAILABLE FOR REMOTE WORK</div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section fade-in-section">
+        <div class="container">
+            <div class="section-label">IMPACT METRICS</div>
+            <h2 class="section-title">Numbers That Matter</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">196K</div>
+                    <div class="stat-label">APT29 Events Analyzed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">165</div>
+                    <div class="stat-label">Unique EventIDs Tracked</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Production Sigma Rules</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Published Articles</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attack Chain Section -->
+    <section class="attack-chain-section fade-in-section">
+        <div class="container">
+            <div class="section-label">CASE STUDY</div>
+            <h2 class="section-title">RDP Attack Chain: 91-Second Compromise</h2>
+            <div class="attack-chain-container">
+                <div class="chain-timeline">
+                    <div class="chain-step">
+                        <div class="step-number">EventID 258</div>
+                        <div class="step-title">Listener Started</div>
+                        <div class="step-time">T+0s // 23:19:11</div>
+                        <div class="step-description">RDP-Tcp listener enabled on non-server asset. Anomaly flagged.</div>
+                    </div>
+                    <div class="chain-arrow">→</div>
+                    <div class="chain-step">
+                        <div class="step-number">EventID 261</div>
+                        <div class="step-title">Connection Received</div>
+                        <div class="step-time">T+69s // 23:20:20</div>
+                        <div class="step-description">Inbound connection from 172.18.39.2. External IP correlation initiated.</div>
+                    </div>
+                    <div class="chain-arrow">→</div>
+                    <div class="chain-step">
+                        <div class="step-number">EventID 1149</div>
+                        <div class="step-title">Authentication Success</div>
+                        <div class="step-time">T+91s // 23:20:42</div>
+                        <div class="step-description">User 'pbeesly' authenticated. Session established. Full compromise confirmed.</div>
+                    </div>
+                    <div class="chain-arrow">→</div>
+                    <div class="chain-step">
+                        <div class="step-number">DETECTION</div>
+                        <div class="step-title">Rule Triggered</div>
+                        <div class="step-time">Real-time Alert</div>
+                        <div class="step-description">Automated correlation via ExecutionProcessID. Alert → Enrichment → Ticket.</div>
+                    </div>
+                </div>
+
+                <div class="code-section">
+                    <div class="code-header">
+                        <div class="code-dot"></div>
+                        <div class="code-dot"></div>
+                        <div class="code-dot"></div>
+                        <div class="code-title">detection_logic.spl</div>
+                    </div>
+                    <pre><code><span class="code-comment">// Correlation query - catches complete RDP abuse chains</span>
+index=windows (EventID=<span class="code-number">258</span> OR EventID=<span class="code-number">261</span> OR EventID=<span class="code-number">1149</span>)
+| <span class="code-function">transaction</span> ExecutionProcessID <span class="code-keyword">maxspan</span>=<span class="code-number">5m</span>
+| <span class="code-keyword">where</span> <span class="code-function">mvcount</span>(EventID) >= <span class="code-number">3</span>
+| <span class="code-function">table</span> _time, Hostname, AccountName, SourceNetworkAddress
+| <span class="code-keyword">where</span> <span class="code-function">match</span>(_raw, <span class="code-string">"258.*261.*1149"</span>)
+
+<span class="code-comment">// Result: Zero false positives. Complete attack timeline in single query.</span></code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Rules Section -->
+    <section class="rules-section fade-in-section">
+        <div class="container">
+            <div class="section-label">DETECTION COVERAGE</div>
+            <h2 class="section-title">Production-Ready Sigma Rules</h2>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-tag">T1003.001</div>
+                    <h3 class="rule-title">LSASS Credential Access</h3>
+                    <p class="rule-description">Detects process access to lsass.exe for credential dumping. Catches Mimikatz, ProcDump, and custom tooling.</p>
+                    <div class="rule-meta">
+                        <span>✓ Validated</span>
+                        <span>FP: &lt;1%</span>
+                        <span>APT29 Dataset</span>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-tag">T1059.001</div>
+                    <h3 class="rule-title">PowerShell Encoded Commands</h3>
+                    <p class="rule-description">Base64 pattern detection in CommandLine arguments. Bypasses flag-based detection.</p>
+                    <div class="rule-meta">
+                        <span>✓ Tuned</span>
+                        <span>FP: &lt;1%</span>
+                        <span>Enterprise Baseline</span>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-tag">T1021.002</div>
+                    <h3 class="rule-title">PsExec Lateral Movement</h3>
+                    <p class="rule-description">Network connections to port 135/445 combined with service installation patterns.</p>
+                    <div class="rule-meta">
+                        <span>✓ Tested</span>
+                        <span>Caldera Validated</span>
+                        <span>Multi-Platform</span>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-tag">T1053.005</div>
+                    <h3 class="rule-title">Scheduled Task Persistence</h3>
+                    <p class="rule-description">Detects schtasks.exe with suspicious parent processes and persistence indicators.</p>
+                    <div class="rule-meta">
+                        <span>✓ Production</span>
+                        <span>FP: &lt;2%</span>
+                        <span>MITRE Mapped</span>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-tag">T1027.001</div>
+                    <h3 class="rule-title">Steganography Detection</h3>
+                    <p class="rule-description">PNG/JPG file access followed by .NET compilation. Catches hidden payload extraction.</p>
+                    <div class="rule-meta">
+                        <span>✓ Novel</span>
+                        <span>APT Technique</span>
+                        <span>Low Volume</span>
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-tag">AUTOMATION</div>
+                    <h3 class="rule-title">Zero-Touch IR Pipeline</h3>
+                    <p class="rule-description">Wazuh → N8N → VirusTotal → Velociraptor → Ticketing. No manual intervention.</p>
+                    <div class="rule-meta">
+                        <span>✓ Live</span>
+                        <span>SOC Lab</span>
+                        <span>End-to-End</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiator Section -->
+    <section class="differentiator-section fade-in-section">
+        <div class="container">
+            <div class="section-label">METHODOLOGY</div>
+            <h2 class="section-title">What Sets This Work Apart</h2>
+            <div class="differentiator-box">
+                <div class="differentiator-content">
+                    <h3 class="differentiator-title">After 3 Years in SOC Work, I Stopped Chasing Alerts</h3>
+                    <p class="differentiator-text">
+                        Most analysts flag EventID 258 (RDP listener started) and create a ticket. Standard operating procedure.
+                    </p>
+                    <p class="differentiator-text">
+                        I pivot on ExecutionProcessID and reconstruct the entire attack timeline. Listener start → Connection received → Authentication success → Session established. 91 seconds. Full compromise mapped.
+                    </p>
+                    <p class="differentiator-text">
+                        That's the difference between detection and hunting. Detection tells you <em>what</em> happened. Hunting tells you <em>how</em>, <em>who</em>, and <em>what comes next</em>.
+                    </p>
+                    <div class="differentiator-highlight">
+                        I build detections that catch what playbooks miss.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section fade-in-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2 class="cta-title">Currently Open to Opportunities</h2>
+                <p class="cta-text">
+                    Looking for <strong>Detection Engineer</strong>, <strong>Threat Hunter</strong>, or <strong>SOC Analyst (L2/L3)</strong> roles where I can build detection coverage that catches real attacks, reduce MTTR through automation, and hunt threats before they complete their objectives.
+                </p>
+                <p class="cta-text" style="margin-bottom: 40px;">
+                    <strong>Location:</strong> Remote worldwide &nbsp;|&nbsp; <strong>Level:</strong> Mid-level with strong foundations
+                </p>
+                <div class="contact-buttons">
+                    <a href="https://www.linkedin.com/in/manishrawat-soc/" class="btn btn-primary" target="_blank">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/Manishrawat21/" class="btn btn-secondary" target="_blank">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://medium.com/@manishrawat21" class="btn btn-secondary" target="_blank">
+                        <span>Medium</span>
+                    </a>
+                    <a href="mailto:Rawatmanish21@outlook.com" class="btn btn-primary">
+                        <span>Email Me</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2026 Manish Rawat // Detection Engineering Portfolio
+                </div>
+                <div class="footer-links">
+                    <a href="https://manishrawat21.substack.com" class="footer-link" target="_blank">Substack</a>
+                    <a href="https://github.com/Manishrawat21/SIGMA-Rules" class="footer-link" target="_blank">Detection Rules</a>
+                    <a href="https://github.com/Manishrawat21/soc-automation-lab" class="footer-link" target="_blank">SOC Lab</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Terminal typing effect for subtitle (optional enhancement)
+        const subtitle = document.querySelector('.subtitle');
+        const text = subtitle.textContent;
+        subtitle.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                subtitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
+</html>
