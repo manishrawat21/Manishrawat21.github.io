@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manish Rawat — Detection Engineering & Telemetry Lab</title>
-  <meta name="description" content="Interactive detection engineering lab and telemetry portfolio of Manish Rawat. Author of Detection Desk." />
+  <title>Manish Rawat — Detection Engineering & Threat Research</title>
+  <meta name="description" content="Portfolio and research journal of Manish Rawat, Detection Engineer and SOC Analyst." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -16,24 +16,8 @@
       theme: {
         extend: {
           fontFamily: {
-            mono: ['"JetBrains Mono"', 'monospace'],
+            serif: ['"Newsreader"', 'serif'],
             sans: ['"Inter"', 'sans-serif'],
-          },
-          colors: {
-            ui: {
-              bg: '#0b0e14',
-              card: '#11151f',
-              border: '#202738',
-              hover: '#283145',
-              active: '#161c29',
-              accent: '#38bdf8',
-              green: '#22c55e',
-              amber: '#f59e0b',
-              red: '#ef4444',
-              textMuted: '#64748b',
-              text: '#94a3b8',
-              textBright: '#f1f5f9'
-            }
           }
         }
       }
@@ -57,619 +41,147 @@
   </script>
 </head>
 
-<body class="bg-ui-bg text-ui-text font-sans antialiased min-h-screen selection:bg-ui-accent/20 selection:text-ui-accent">
+<body class="bg-white text-zinc-900 font-sans antialiased selection:bg-zinc-900 selection:text-white">
 
-  <!-- Status Bar / Global Header -->
-  <header class="border-b border-ui-border bg-ui-card/80 sticky top-0 z-50 backdrop-blur-sm">
-    <div class="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between font-mono text-xs">
-      <div class="flex items-center gap-3">
-        <span class="flex h-2 w-2 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ui-green opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-ui-green"></span>
-        </span>
-        <span class="text-ui-textBright font-semibold">rawat@soc-node-01</span>
-        <span class="text-ui-textMuted hidden sm:inline">:: [ENV: DETECTION_ENGINEERING]</span>
-      </div>
-
-      <nav class="flex items-center gap-4 text-ui-text">
-        <a href="#workbench" class="hover:text-ui-textBright transition-colors">Triage Workbench</a>
-        <a href="#pipeline" class="hover:text-ui-textBright transition-colors">SOAR Pipeline</a>
-        <a href="#terminal" class="hover:text-ui-textBright transition-colors">CLI</a>
-        <a href="https://github.com/manishrawat21" target="_blank" class="px-2 py-1 rounded bg-ui-border hover:bg-ui-hover text-ui-textBright">GitHub ↗</a>
-      </nav>
+  <!-- Minimalist Header -->
+  <header class="max-w-3xl mx-auto px-6 pt-16 pb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200">
+    <div>
+      <span class="text-xs font-semibold tracking-wider uppercase text-zinc-500">Detection Engineering & SOC Lab</span>
+      <h1 class="text-xl font-serif italic text-zinc-900 mt-0.5">Manish Rawat</h1>
     </div>
+    <nav class="flex items-center gap-6 text-sm text-zinc-600">
+      <a href="#projects" class="hover:text-zinc-900 transition-colors">Projects</a>
+      <a href="#research" class="hover:text-zinc-900 transition-colors">Research</a>
+      <a href="https://github.com/manishrawat21" target="_blank" class="hover:text-zinc-900 transition-colors">GitHub ↗</a>
+    </nav>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 py-10 space-y-12">
+  <main class="max-w-3xl mx-auto px-6 py-12 space-y-16">
 
-    <!-- Hero / Spec Sheet (No Generic Fluff) -->
-    <section class="border border-ui-border bg-ui-card rounded-lg p-6 font-mono">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-4">
-          <div class="text-xs uppercase text-ui-accent tracking-wider font-semibold">Security Analyst & Detection Engineer</div>
-          <h1 class="text-3xl sm:text-4xl font-bold text-ui-textBright tracking-tight">
-            Manish Rawat
-          </h1>
-          <p class="text-sm leading-relaxed text-ui-text font-sans">
-            Specializing in telemetry pipeline architecture, event-driven SOAR automation (n8n), and behavioral detection rules validated across enterprise endpoints. Author of <a href="https://manishrawat21.substack.com" class="text-ui-accent hover:underline">Detection Desk</a>. Research cited 5x in Phill Moore’s <span class="text-ui-textBright">This Week In 4n6</span>.
+    <!-- Bio / Abstract Section -->
+    <section class="space-y-6">
+      <p class="text-2xl sm:text-3xl font-serif leading-snug text-zinc-900">
+        Engineering automated detection pipelines, analyzing endpoint telemetry, and authoring production-grade Sigma rules for enterprise security operations.
+      </p>
+      
+      <p class="text-base text-zinc-600 leading-relaxed font-sans">
+        Currently focused on zero-touch threat intelligence integration using <span class="text-zinc-900 font-medium">n8n</span>, telemetry analysis via <span class="text-zinc-900 font-medium">Wazuh EDR and Sysmon</span>, and behavioral threat hunting. Research cited across multiple editions of Phill Moore’s <span class="text-zinc-900 font-medium">This Week In 4n6</span>.
+      </p>
+
+      <!-- Clean Links Grid -->
+      <div class="pt-2 flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/manishrawat21" target="_blank" class="underline underline-offset-4 decoration-zinc-300 hover:decoration-zinc-900 transition-all">GitHub</a>
+        <a href="https://www.linkedin.com/in/manishrawat21" target="_blank" class="underline underline-offset-4 decoration-zinc-300 hover:decoration-zinc-900 transition-all">LinkedIn</a>
+        <a href="https://manishrawat21.substack.com" target="_blank" class="underline underline-offset-4 decoration-zinc-300 hover:decoration-zinc-900 transition-all">Detection Desk</a>
+        <a href="https://medium.com/@manishrawat21" target="_blank" class="underline underline-offset-4 decoration-zinc-300 hover:decoration-zinc-900 transition-all">Medium</a>
+        <a href="mailto:rawatmanish21@outlook.com" class="underline underline-offset-4 decoration-zinc-300 hover:decoration-zinc-900 transition-all">Email</a>
+      </div>
+    </section>
+
+    <!-- SECTION 1: ENGINEERING PROJECTS -->
+    <section id="projects" class="space-y-8">
+      <div class="border-b border-zinc-200 pb-3">
+        <h2 class="text-xs font-semibold tracking-wider uppercase text-zinc-500">Engineering Portfolio</h2>
+      </div>
+
+      <div class="space-y-10">
+        
+        <article class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <h3 class="text-lg font-medium text-zinc-900">CISA KEV Threat Intel Orchestrator</h3>
+            <span class="text-xs text-zinc-500 font-mono">n8n · CISA API · Sigma</span>
+          </div>
+          <p class="text-sm text-zinc-600 leading-relaxed">
+            An event-driven pipeline that automates CISA Known Exploited Vulnerabilities ingestion, transforming raw CVE advisories into validated, production-ready Sigma rules via structured schema constraints. Reduces manual triage from hours to zero minutes.
           </p>
+          <div class="pt-1">
+            <a href="https://github.com/manishrawat21/Cisa-KEV-Threat-Intel-Orchestrator" target="_blank" class="text-xs font-medium text-zinc-900 underline underline-offset-2">View Repository ↗</a>
+          </div>
+        </article>
 
-          <div class="flex flex-wrap gap-2 text-xs pt-2">
-            <a href="https://github.com/manishrawat21" target="_blank" class="px-3 py-1.5 rounded border border-ui-border bg-ui-bg hover:border-ui-accent text-ui-textBright">github/manishrawat21</a>
-            <a href="https://www.linkedin.com/in/manishrawat21" target="_blank" class="px-3 py-1.5 rounded border border-ui-border bg-ui-bg hover:border-ui-accent text-ui-textBright">linkedin/manishrawat21</a>
-            <a href="https://medium.com/@manishrawat21" target="_blank" class="px-3 py-1.5 rounded border border-ui-border bg-ui-bg hover:border-ui-accent text-ui-textBright">medium/@manishrawat21</a>
-            <a href="https://manishrawat21.substack.com" target="_blank" class="px-3 py-1.5 rounded border border-ui-border bg-ui-bg hover:border-ui-accent text-ui-textBright">detectiondesk.substack</a>
-            <a href="mailto:rawatmanish21@outlook.com" class="px-3 py-1.5 rounded border border-ui-border bg-ui-bg hover:border-ui-accent text-ui-accent">rawatmanish21@outlook.com</a>
+        <article class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <h3 class="text-lg font-medium text-zinc-900">Autonomous SOC Automation Lab</h3>
+            <span class="text-xs text-zinc-500 font-mono">Wazuh · Caldera · Velociraptor</span>
           </div>
-        </div>
+          <p class="text-sm text-zinc-600 leading-relaxed">
+            End-to-end security operations lab mapping adversary emulation via MITRE Caldera to live Wazuh EDR telemetry ingestion, automated webhook alert dispatch, and Velociraptor forensic artifact collection.
+          </p>
+          <div class="pt-1">
+            <a href="https://github.com/manishrawat21/soc-automation-lab" target="_blank" class="text-xs font-medium text-zinc-900 underline underline-offset-2">View Repository ↗</a>
+          </div>
+        </article>
 
-        <!-- Telemetry Spec Sidebar -->
-        <div class="border-t lg:border-t-0 lg:border-l border-ui-border lg:pl-6 space-y-3 text-xs">
-          <div class="text-ui-textMuted uppercase tracking-wider text-[11px]">Telemetry Baseline</div>
-          <div class="flex justify-between py-1 border-b border-ui-border/50">
-            <span class="text-ui-text">Event Datasets</span>
-            <span class="text-ui-textBright font-semibold">196,071+ Sysmon Logs</span>
+        <article class="space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <h3 class="text-lg font-medium text-zinc-900">APT29 Validated Detection Rules</h3>
+            <span class="text-xs text-zinc-500 font-mono">Sysmon · Splunk SPL · Sigma</span>
           </div>
-          <div class="flex justify-between py-1 border-b border-ui-border/50">
-            <span class="text-ui-text">CVE Triage Velocity</span>
-            <span class="text-ui-green font-semibold">4h → 0m (Automated)</span>
+          <p class="text-sm text-zinc-600 leading-relaxed">
+            Custom Sigma rules and Splunk SPL queries tested and tuned against 196,000+ telemetry events simulating APT29 lateral movement, process injection, and obfuscated execution techniques.
+          </p>
+          <div class="pt-1">
+            <a href="https://github.com/manishrawat21/Detection-Rules" target="_blank" class="text-xs font-medium text-zinc-900 underline underline-offset-2">View Repository ↗</a>
           </div>
-          <div class="flex justify-between py-1 border-b border-ui-border/50">
-            <span class="text-ui-text">TryHackMe Rank</span>
-            <span class="text-ui-accent font-semibold">Top 3% Globally</span>
-          </div>
-          <div class="flex justify-between py-1">
-            <span class="text-ui-text">Core Tooling</span>
-            <span class="text-ui-textBright font-semibold">Wazuh · n8n · Caldera · SPL</span>
-          </div>
-        </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- SECTION 1: INTERACTIVE DETECTION & TRIAGE WORKBENCH -->
-    <section id="workbench" class="space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+    <!-- SECTION 2: RESEARCH & PUBLICATIONS -->
+    <section id="research" class="space-y-8">
+      <div class="border-b border-zinc-200 pb-3">
+        <h2 class="text-xs font-semibold tracking-wider uppercase text-zinc-500">Research & Editorial Mentions</h2>
+      </div>
+
+      <div class="space-y-6 text-sm">
+        
+        <div class="space-y-1">
+          <div class="text-xs text-zinc-500 font-mono">Curated in This Week In 4n6 (Phill Moore)</div>
+          <h4 class="font-medium text-zinc-900">Hunting APT29: Process Tree Forensics & EventID 1 Analysis</h4>
+          <p class="text-zinc-600 text-xs">Featured across multiple weekly digests alongside enterprise research from Team Cymru and Tenable.</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-xs text-zinc-500 font-mono">Published via System Weakness</div>
+          <h4 class="font-medium text-zinc-900">Why Most 'Threat Hunts' Are Just Expensive Fishing Expeditions</h4>
+          <p class="text-zinc-600 text-xs">Analytical critique of enterprise threat hunting methodologies, syndicated across automated threat intelligence feeds.</p>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-xs text-zinc-500 font-mono">Detection Desk Substack</div>
+          <h4 class="font-medium text-zinc-900">Weekly Threat Tradecraft & Sigma Rule Distribution</h4>
+          <p class="text-zinc-600 text-xs">Regular technical breakdowns of adversary behavior, evasion techniques, and detection engineering strategies.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: CORE COMPETENCIES -->
+    <section class="space-y-6">
+      <div class="border-b border-zinc-200 pb-3">
+        <h2 class="text-xs font-semibold tracking-wider uppercase text-zinc-500">Core Competencies</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm text-zinc-700">
         <div>
-          <h2 class="text-lg font-mono font-bold text-ui-textBright flex items-center gap-2">
-            <span class="text-ui-accent">01.</span> Telemetry & Detection Workbench
-          </h2>
-          <p class="text-xs text-ui-textMuted">Click an adversary telemetry event below to evaluate against production Sigma logic in real time.</p>
+          <strong class="text-zinc-900 block mb-1">Detection & SIEM</strong>
+          <p class="text-xs text-zinc-600 leading-relaxed">Sigma Specification, Wazuh EDR, Splunk SPL, Elastic Stack, Sysmon Event Analysis, Suricata IDS.</p>
         </div>
-        <div class="text-xs font-mono text-ui-textMuted">Status: <span id="evalStatus" class="text-ui-green font-bold">READY</span></div>
-      </div>
-
-      <!-- Workbench Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        
-        <!-- Event Selector (4 cols) -->
-        <div class="lg:col-span-4 border border-ui-border bg-ui-card rounded-lg p-3 space-y-2 font-mono text-xs">
-          <div class="text-[11px] text-ui-textMuted uppercase tracking-wider px-2 py-1">Ingested Events (Sysmon / Auditd)</div>
-          
-          <button onclick="selectEvent(0)" id="evtBtn-0" class="w-full text-left p-3 rounded border border-ui-accent bg-ui-hover transition-all">
-            <div class="flex justify-between text-[11px] text-ui-accent font-semibold">
-              <span>Sysmon EventID 1</span>
-              <span>APT29 T1059.001</span>
-            </div>
-            <div class="text-ui-textBright mt-1 truncate">powershell.exe -enc SQBFAFgA...</div>
-            <div class="text-ui-textMuted text-[10px] mt-0.5">Base64 Encoded Execution via Parent cmd.exe</div>
-          </button>
-
-          <button onclick="selectEvent(1)" id="evtBtn-1" class="w-full text-left p-3 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover transition-all">
-            <div class="flex justify-between text-[11px] text-ui-amber font-semibold">
-              <span>Sysmon EventID 10</span>
-              <span>Credential Access T1003</span>
-            </div>
-            <div class="text-ui-textBright mt-1 truncate">lsass.exe Memory Access (0x1010)</div>
-            <div class="text-ui-textMuted text-[10px] mt-0.5">Target: C:\Windows\System32\lsass.exe</div>
-          </button>
-
-          <button onclick="selectEvent(2)" id="evtBtn-2" class="w-full text-left p-3 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover transition-all">
-            <div class="flex justify-between text-[11px] text-ui-textMuted font-semibold">
-              <span>Sysmon EventID 1 (Benign)</span>
-              <span>Clean Telemetry</span>
-            </div>
-            <div class="text-ui-textBright mt-1 truncate">C:\Windows\System32\svchost.exe -k netsvcs</div>
-            <div class="text-ui-textMuted text-[10px] mt-0.5">Legitimate Host Process Creation</div>
-          </button>
-        </div>
-
-        <!-- Telemetry Raw Log Inspector (4 cols) -->
-        <div class="lg:col-span-4 border border-ui-border bg-ui-card rounded-lg flex flex-col font-mono text-xs">
-          <div class="px-4 py-2 border-b border-ui-border flex justify-between items-center text-ui-textMuted">
-            <span>RAW_TELEMETRY.json</span>
-            <span class="text-[10px] text-ui-accent" id="logSource">Event #196024</span>
-          </div>
-          <pre id="rawLogView" class="p-4 text-[11px] text-ui-text flex-1 overflow-x-auto overflow-y-auto max-h-80 leading-relaxed font-mono whitespace-pre"></pre>
-        </div>
-
-        <!-- Detection Rule & Live Match Pane (4 cols) -->
-        <div class="lg:col-span-4 border border-ui-border bg-ui-card rounded-lg flex flex-col font-mono text-xs">
-          <div class="px-4 py-2 border-b border-ui-border flex justify-between items-center text-ui-textMuted">
-            <span>SIGMA_LOGIC.yml</span>
-            <span id="matchBadge" class="text-[10px] px-2 py-0.5 rounded bg-ui-red/20 text-ui-red font-bold">MATCH DETECTED</span>
-          </div>
-          <pre id="ruleView" class="p-4 text-[11px] text-ui-text flex-1 overflow-x-auto overflow-y-auto max-h-80 leading-relaxed font-mono whitespace-pre"></pre>
-          <div class="p-3 border-t border-ui-border bg-ui-bg/50">
-            <button onclick="runTriageSimulation()" class="w-full py-2 px-3 rounded bg-ui-accent text-ui-bg font-bold hover:bg-ui-accent/90 transition-all">
-              Re-Evaluate Detection Logic
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 2: INTERACTIVE SOAR DAG PIPELINE -->
-    <section id="pipeline" class="space-y-4">
-      <div>
-        <h2 class="text-lg font-mono font-bold text-ui-textBright flex items-center gap-2">
-          <span class="text-ui-accent">02.</span> Automated SOAR Architecture (n8n + CISA KEV)
-        </h2>
-        <p class="text-xs text-ui-textMuted">Interactive execution flow of the zero-touch threat intelligence engine. Click any node to inspect payload state.</p>
-      </div>
-
-      <div class="border border-ui-border bg-ui-card rounded-lg p-4 lg:p-6 font-mono">
-        <!-- Interactive Node Graph Flow -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs mb-6">
-          <button onclick="selectNode(0)" id="nodeBtn-0" class="p-4 rounded border border-ui-accent bg-ui-hover text-left space-y-1 transition-all">
-            <div class="text-ui-textMuted text-[10px]">STAGE 01 :: CRON</div>
-            <div class="text-ui-textBright font-bold">CISA KEV Ingestion</div>
-            <div class="text-[10px] text-ui-accent">REST API Poll</div>
-          </button>
-
-          <button onclick="selectNode(1)" id="nodeBtn-1" class="p-4 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover text-left space-y-1 transition-all">
-            <div class="text-ui-textMuted text-[10px]">STAGE 02 :: ENGINE</div>
-            <div class="text-ui-textBright font-bold">n8n Orchestrator</div>
-            <div class="text-[10px] text-ui-textMuted">Triage & Filter</div>
-          </button>
-
-          <button onclick="selectNode(2)" id="nodeBtn-2" class="p-4 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover text-left space-y-1 transition-all">
-            <div class="text-ui-textMuted text-[10px]">STAGE 03 :: SYNTHESIS</div>
-            <div class="text-ui-textBright font-bold">Sigma Generator</div>
-            <div class="text-[10px] text-ui-textMuted">Grammar-Constrained</div>
-          </button>
-
-          <button onclick="selectNode(3)" id="nodeBtn-3" class="p-4 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover text-left space-y-1 transition-all">
-            <div class="text-ui-textMuted text-[10px]">STAGE 04 :: DISPATCH</div>
-            <div class="text-ui-textBright font-bold">SIEM / SOC Alert</div>
-            <div class="text-[10px] text-ui-textMuted">Wazuh & Audit Log</div>
-          </button>
-        </div>
-
-        <!-- Node State Inspector -->
-        <div class="border border-ui-border bg-ui-bg rounded-lg p-4">
-          <div class="flex items-center justify-between pb-3 border-b border-ui-border/60 text-xs">
-            <span class="text-ui-accent font-bold" id="nodeTitle">Stage 01: CISA KEV JSON Stream</span>
-            <span class="text-ui-textMuted" id="nodeFormat">Format: JSON Payload</span>
-          </div>
-          <pre id="nodePayload" class="mt-3 text-xs text-ui-text font-mono overflow-x-auto max-h-64 whitespace-pre"></pre>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 3: REPOSITORIES & CURATION AUDIT -->
-    <section class="space-y-4">
-      <div>
-        <h2 class="text-lg font-mono font-bold text-ui-textBright flex items-center gap-2">
-          <span class="text-ui-accent">03.</span> Production Repositories & Published Detections
-        </h2>
-        <p class="text-xs text-ui-textMuted">Verified code artifacts with hands-on telemetry datasets.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-        
-        <div class="border border-ui-border bg-ui-card rounded-lg p-5 flex flex-col justify-between hover:border-ui-accent/50 transition-colors">
-          <div class="space-y-3">
-            <div class="flex justify-between text-ui-textMuted text-[11px]">
-              <span class="text-ui-accent">SOAR Pipeline</span>
-              <span>⭐ 38</span>
-            </div>
-            <div class="text-sm font-bold text-ui-textBright">Cisa-KEV-Threat-Intel-Orchestrator</div>
-            <p class="text-xs text-ui-text font-sans">Automated n8n pipeline converting live CISA KEV feeds into valid Sigma rules. Replaces 4 hours of manual research with a zero-touch cron workflow.</p>
-          </div>
-          <div class="mt-6 pt-3 border-t border-ui-border flex justify-between items-center">
-            <span class="text-[10px] text-ui-green">Active Pipeline</span>
-            <a href="https://github.com/manishrawat21/Cisa-KEV-Threat-Intel-Orchestrator" target="_blank" class="text-ui-accent hover:underline">View Repo ↗</a>
-          </div>
-        </div>
-
-        <div class="border border-ui-border bg-ui-card rounded-lg p-5 flex flex-col justify-between hover:border-ui-accent/50 transition-colors">
-          <div class="space-y-3">
-            <div class="flex justify-between text-ui-textMuted text-[11px]">
-              <span class="text-ui-accent">Lab Architecture</span>
-              <span>Wazuh · Caldera</span>
-            </div>
-            <div class="text-sm font-bold text-ui-textBright">soc-automation-lab</div>
-            <p class="text-xs text-ui-text font-sans">Enterprise simulation environment: attack emulation via Caldera, telemetry collection in Wazuh EDR, n8n webhook alerts, and Velociraptor artifact triage.</p>
-          </div>
-          <div class="mt-6 pt-3 border-t border-ui-border flex justify-between items-center">
-            <span class="text-[10px] text-ui-green">Documented</span>
-            <a href="https://github.com/manishrawat21/soc-automation-lab" target="_blank" class="text-ui-accent hover:underline">View Repo ↗</a>
-          </div>
-        </div>
-
-        <div class="border border-ui-border bg-ui-card rounded-lg p-5 flex flex-col justify-between hover:border-ui-accent/50 transition-colors">
-          <div class="space-y-3">
-            <div class="flex justify-between text-ui-textMuted text-[11px]">
-              <span class="text-ui-accent">Logic & SPL</span>
-              <span>196k+ Events</span>
-            </div>
-            <div class="text-sm font-bold text-ui-textBright">Detection-Rules</div>
-            <p class="text-xs text-ui-text font-sans">Production Sigma rules and Splunk SPL queries targeting APT29 adversary techniques (process injection, obfuscated PowerShell, named pipes).</p>
-          </div>
-          <div class="mt-6 pt-3 border-t border-ui-border flex justify-between items-center">
-            <span class="text-[10px] text-ui-green">Validated</span>
-            <a href="https://github.com/manishrawat21/Detection-Rules" target="_blank" class="text-ui-accent hover:underline">View Repo ↗</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SECTION 4: INTERACTIVE CLI TERMINAL -->
-    <section id="terminal" class="space-y-4">
-      <div>
-        <h2 class="text-lg font-mono font-bold text-ui-textBright flex items-center gap-2">
-          <span class="text-ui-accent">04.</span> Interactive Shell
-        </h2>
-        <p class="text-xs text-ui-textMuted">Type <code class="text-ui-accent font-bold">help</code> to inspect lab commands, query publications, or view contact details.</p>
-      </div>
-
-      <div class="border border-ui-border bg-ui-card rounded-lg overflow-hidden font-mono text-xs">
-        <div class="px-4 py-2 border-b border-ui-border bg-ui-bg flex items-center justify-between text-ui-textMuted">
-          <div class="flex items-center gap-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-ui-red"></span>
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-ui-amber"></span>
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-ui-green"></span>
-            <span class="ml-2 text-ui-text">bash - 80x24</span>
-          </div>
-          <span class="text-[10px]">Terminal Session</span>
-        </div>
-
-        <div id="termBody" class="p-4 bg-ui-bg space-y-2 min-h-[220px] max-h-80 overflow-y-auto">
-          <div class="text-ui-textMuted">Type 'help' for available commands. Try 'cat apt29', 'rules', or 'whoami'.</div>
-          <div id="termOutput" class="space-y-2"></div>
-          
-          <div class="flex items-center gap-2 pt-1">
-            <span class="text-ui-green">rawat@soc:~$</span>
-            <input type="text" id="termInput" autofocus class="flex-1 bg-transparent text-ui-textBright outline-none border-none font-mono" />
-          </div>
+        <div>
+          <strong class="text-zinc-900 block mb-1">Orchestration & SOAR</strong>
+          <p class="text-xs text-zinc-600 leading-relaxed">n8n Workflow Automation, REST API Integration, CISA KEV Ingestion, MITRE Caldera.</p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Clean Footer -->
-  <footer class="border-t border-ui-border py-8 text-center text-xs font-mono text-ui-textMuted">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>Manish Rawat — Verified Detection Engineering & SOC Telemetry</div>
-      <div class="flex gap-4">
-        <a href="https://github.com/manishrawat21" class="hover:text-ui-textBright">GitHub</a>
-        <a href="https://www.linkedin.com/in/manishrawat21" class="hover:text-ui-textBright">LinkedIn</a>
-        <a href="https://manishrawat21.substack.com" class="hover:text-ui-textBright">Detection Desk</a>
-        <a href="mailto:rawatmanish21@outlook.com" class="hover:text-ui-accent">Email</a>
-      </div>
-    </div>
+  <!-- Minimalist Footer -->
+  <footer class="max-w-3xl mx-auto px-6 py-12 mt-12 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+    <div>Manish Rawat — Detection Engineering</div>
+    <div>Hosted on GitHub Pages</div>
   </footer>
-
-  <!-- INTERACTIVE LOGIC SCRIPT -->
-  <script>
-    // 1. DATASETS FOR THE WORKBENCH
-    const events = [
-      {
-        id: 0,
-        name: "Sysmon EventID 1 (APT29 PowerShell)",
-        source: "Event #196024 :: Sysmon (Host: WORKSTATION-01)",
-        status: "MATCH DETECTED",
-        isMatch: true,
-        raw: {
-          EventID: 1,
-          UtcTime: "2026-03-24 14:22:01.104",
-          ProcessGuid: "{52A9D987-1B21-65F2-0000-001045230000}",
-          ProcessId: 4920,
-          Image: "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-          CommandLine: "powershell.exe -nop -w hidden -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQA...",
-          ParentProcessId: 3812,
-          ParentImage: "C:\\Windows\\System32\\cmd.exe",
-          User: "CORP\\jdoe"
-        },
-        sigma: `title: Suspicious Encoded PowerShell Execution
-status: production
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection_img:
-        Image|endswith: '\\powershell.exe'
-    selection_flags:
-        CommandLine|contains:
-            - ' -enc '
-            - ' -EncodedCommand '
-            - ' -w hidden '
-            - ' -nop '
-    condition: selection_img and selection_flags
-fields:
-    - CommandLine
-    - ParentImage
-level: high`
-      },
-      {
-        id: 1,
-        name: "Sysmon EventID 10 (LSASS Memory Access)",
-        source: "Event #196088 :: Sysmon (Host: DOMAIN-CTRL-01)",
-        status: "MATCH DETECTED",
-        isMatch: true,
-        raw: {
-          EventID: 10,
-          UtcTime: "2026-03-24 14:29:45.312",
-          SourceProcessId: 6104,
-          SourceImage: "C:\\Users\\Public\\mim.exe",
-          TargetProcessId: 748,
-          TargetImage: "C:\\Windows\\System32\\lsass.exe",
-          GrantedAccess: "0x1010",
-          CallTrace: "C:\\Windows\\SYSTEM32\\ntdll.dll+9fb34|..."
-        },
-        sigma: `title: LSASS Memory Access with High Privileges
-status: production
-logsource:
-    category: process_access
-    product: windows
-detection:
-    selection:
-        TargetImage|endswith: '\\lsass.exe'
-        GrantedAccess:
-            - '0x1010'
-            - '0x1F0FFF'
-            - '0x1410'
-    condition: selection
-fields:
-    - SourceImage
-    - GrantedAccess
-level: critical`
-      },
-      {
-        id: 2,
-        name: "Sysmon EventID 1 (Benign Svchost)",
-        source: "Event #196112 :: Sysmon (Host: WORKSTATION-01)",
-        status: "NO MATCH (CLEAN)",
-        isMatch: false,
-        raw: {
-          EventID: 1,
-          UtcTime: "2026-03-24 14:35:10.820",
-          ProcessId: 1024,
-          Image: "C:\\Windows\\System32\\svchost.exe",
-          CommandLine: "C:\\Windows\\System32\\svchost.exe -k netsvcs -p",
-          ParentProcessId: 684,
-          ParentImage: "C:\\Windows\\System32\\services.exe",
-          User: "NT AUTHORITY\\SYSTEM"
-        },
-        sigma: `title: Suspicious Encoded PowerShell Execution
-status: production
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection_img:
-        Image|endswith: '\\powershell.exe'
-    selection_flags:
-        CommandLine|contains:
-            - ' -enc '
-    condition: selection_img and selection_flags
-level: high`
-      }
-    ];
-
-    function selectEvent(idx) {
-      const evt = events[idx];
-      document.getElementById('logSource').textContent = evt.source;
-      document.getElementById('rawLogView').textContent = JSON.stringify(evt.raw, null, 2);
-      document.getElementById('ruleView').textContent = evt.sigma;
-      
-      const badge = document.getElementById('matchBadge');
-      if (evt.isMatch) {
-        badge.textContent = "CRITICAL MATCH";
-        badge.className = "text-[10px] px-2 py-0.5 rounded bg-ui-red/20 text-ui-red font-bold";
-      } else {
-        badge.textContent = "FILTERED (NO MATCH)";
-        badge.className = "text-[10px] px-2 py-0.5 rounded bg-ui-green/20 text-ui-green font-bold";
-      }
-
-      [0, 1, 2].forEach(i => {
-        const btn = document.getElementById('evtBtn-' + i);
-        if (i === idx) {
-          btn.className = "w-full text-left p-3 rounded border border-ui-accent bg-ui-hover transition-all";
-        } else {
-          btn.className = "w-full text-left p-3 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover transition-all";
-        }
-      });
-    }
-
-    function runTriageSimulation() {
-      const status = document.getElementById('evalStatus');
-      status.textContent = "PARSING...";
-      status.className = "text-ui-amber font-bold animate-pulse";
-      setTimeout(() => {
-        status.textContent = "EVALUATION COMPLETE";
-        status.className = "text-ui-green font-bold";
-      }, 350);
-    }
-
-    // 2. SOAR PIPELINE NODE DATA
-    const pipelineNodes = [
-      {
-        title: "Stage 01: CISA KEV JSON Stream",
-        format: "Source: api.cisa.gov/known-exploited-vulnerabilities",
-        payload: `GET /known-exploited-vulnerabilities.json HTTP/1.1
-Host: www.cisa.gov
-
-[
-  {
-    "cveID": "CVE-2024-21413",
-    "vendorProject": "Microsoft",
-    "product": "Outlook",
-    "vulnerabilityName": "Microsoft Outlook Remote Code Execution",
-    "dateAdded": "2024-02-15",
-    "shortDescription": "Vulnerability allowing bypass of Protected View via moniker link handling.",
-    "requiredAction": "Apply vendor mitigations.",
-    "knownRansomwareCampaignUse": "Known"
-  }
-]`
-      },
-      {
-        title: "Stage 02: n8n Orchestrator Logic Node",
-        format: "Engine: n8n Core (Webhook & Filtering Engine)",
-        payload: `// n8n Code Node: Deduplication & Severity Filter
-const newCves = $input.all();
-const thresholdDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-
-return newCves.filter(item => {
-  const date = new Date(item.json.dateAdded);
-  return date >= thresholdDate && item.json.knownRansomwareCampaignUse === "Known";
-}).map(item => ({
-  json: {
-    cve: item.json.cveID,
-    product: item.json.product,
-    attackSurface: "Endpoint / Email Telemetry",
-    priority: "CRITICAL"
-  }
-}));`
-      },
-      {
-        title: "Stage 03: Grammar-Constrained Sigma Generator",
-        format: "Model: Structured Prompt Constraint Validator",
-        payload: `title: CISA-KEV CVE-2024-21413 Outlook Moniker Link Execution
-id: 8b6710ea-d218-4e89-a29d-400192837190
-status: experimental
-description: Detects exploitation of Outlook CVE-2024-21413 via protocol link handlers
-references:
-    - https://www.cisa.gov/known-exploited-vulnerabilities-catalog
-author: Manish Rawat (Detection Desk)
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        ParentImage|endswith: '\\OUTLOOK.EXE'
-        Image|endswith:
-            - '\\cmd.exe'
-            - '\\powershell.exe'
-            - '\\rundll32.exe'
-    condition: selection
-level: high`
-      },
-      {
-        title: "Stage 04: SIEM Dispatch & Ticket Generation",
-        format: "Target: Wazuh EDR + Jira Service Desk API",
-        payload: `POST /api/v4/alerts HTTP/1.1
-Host: wazuh-manager.soc.local
-Content-Type: application/json
-
-{
-  "rule_id": 100421,
-  "level": 12,
-  "description": "CISA KEV CVE-2024-21413 Sigma Logic Active",
-  "data": {
-    "cve": "CVE-2024-21413",
-    "pipeline": "n8n-cisa-orchestrator",
-    "validation_events_tested": 196071,
-    "false_positive_rate": "0.00%"
-  }
-}`
-      }
-    ];
-
-    function selectNode(idx) {
-      const node = pipelineNodes[idx];
-      document.getElementById('nodeTitle').textContent = node.title;
-      document.getElementById('nodeFormat').textContent = node.format;
-      document.getElementById('nodePayload').textContent = node.payload;
-
-      [0, 1, 2, 3].forEach(i => {
-        const btn = document.getElementById('nodeBtn-' + i);
-        if (i === idx) {
-          btn.className = "p-4 rounded border border-ui-accent bg-ui-hover text-left space-y-1 transition-all";
-        } else {
-          btn.className = "p-4 rounded border border-ui-border bg-ui-bg hover:bg-ui-hover text-left space-y-1 transition-all";
-        }
-      });
-    }
-
-    // 3. INTERACTIVE TERMINAL LOGIC
-    const termInput = document.getElementById('termInput');
-    const termOutput = document.getElementById('termOutput');
-    const termBody = document.getElementById('termBody');
-
-    const commands = {
-      help: () => `Available commands:
-  whoami         - View engineer profile & credentials
-  rules          - List validated Sigma detection rules
-  cat apt29      - Summary of the 196,071 log threat hunt
-  citations      - View This Week In 4n6 mentions
-  links          - Print all active profiles & research links
-  clear          - Wipe the console screen`,
-      whoami: () => `Manish Rawat | Detection Engineer & SOC Analyst
-Specialization : SOAR (n8n), Wazuh EDR, Sysmon, Sigma Rules, Threat Hunting
-Citations      : 5x Featured in 'This Week In 4n6' (Phill Moore)
-Status         : Open to Tier 1/2 Detection & SOC Analyst Opportunities`,
-      rules: () => `Active Detection Rules in Repository:
-  - sigma/win_powershell_enc_cmd.yml (T1059.001)
-  - sigma/win_lsass_access_mask.yml  (T1003.001)
-  - sigma/win_named_pipe_apt29.yml   (T1570)
-  - splunk/apt29_process_tree.spl    (196k events validated)`,
-      'cat apt29': () => `Project: Hunting APT29 in 196,071 Sysmon Logs
-Telemetry: Sysmon EventID 1, 3, 7, 10
-Key Insight: Found lateral movement and process spoofing hidden behind svchost parents.
-Published on Detection Desk & curated in This Week In 4n6 (Week 13 & 14, 2026).`,
-      citations: () => `Phill Moore's 'This Week In 4n6' Features:
-  - Week 15, 2026 : Hunting APT29 Part 3 (Process Tree Forensics)
-  - Week 14, 2026 : Hunting APT29 Part 2 (Searching ProcessID 1129)
-  - Week 04, 2026 : DLL Hijacking Still Works in 2025
-  - Week 34, 2025 : Hunting APT29 Named Pipe Backdoors
-  - Week 28, 2025 : Why Most Threat Hunts Are Fishing Expeditions`,
-      links: () => `Canonical Profiles:
-  - GitHub   : https://github.com/manishrawat21
-  - LinkedIn : https://www.linkedin.com/in/manishrawat21
-  - Substack : https://manishrawat21.substack.com
-  - Medium   : https://medium.com/@manishrawat21`
-    };
-
-    termInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const rawCmd = termInput.value.trim().toLowerCase();
-        termInput.value = '';
-
-        const line = document.createElement('div');
-        line.className = 'flex items-center gap-2';
-        line.innerHTML = `<span class="text-ui-green">rawat@soc:~$</span> <span class="text-ui-textBright">${rawCmd}</span>`;
-        termOutput.appendChild(line);
-
-        if (rawCmd === 'clear') {
-          termOutput.innerHTML = '';
-          return;
-        }
-
-        const out = document.createElement('div');
-        out.className = 'text-ui-text whitespace-pre-wrap pl-4 border-l border-ui-border';
-
-        if (commands[rawCmd]) {
-          out.textContent = commands[rawCmd]();
-        } else if (rawCmd === '') {
-          // Do nothing
-        } else {
-          out.textContent = `Command not found: ${rawCmd}. Type 'help' for options.`;
-          out.className += ' text-ui-red';
-        }
-
-        termOutput.appendChild(out);
-        termBody.scrollTop = termBody.scrollHeight;
-      }
-    });
-
-    // Initialize defaults on load
-    selectEvent(0);
-    selectNode(0);
-  </script>
 
 </body>
 </html>
