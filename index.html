@@ -1,378 +1,522 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manish Rawat | Detection Engineer & SOC Analyst</title>
-  <meta name="description" content="Portfolio of Manish Rawat - Detection Engineer, SOC Analyst, and author of Detection Desk. Specializing in security orchestration, Sigma rules, and endpoint telemetry." />
-  <meta name="keywords" content="Manish Rawat, Detection Engineer, SOC Analyst, SIEM, SOAR, n8n, Wazuh, Sysmon, Sigma Rules, CISA KEV, Threat Hunting" />
-  
+  <title>Manish Rawat | Detection Engineer & SOC Automation</title>
+  <meta name="description" content="Technical portfolio of Manish Rawat. Detection Engineering, SOAR Playbooks (n8n), SIEM (Wazuh, ELK), and Threat Hunting." />
+
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Manish Rawat | Detection Engineering & Security Automation" />
-  <meta property="og:description" content="Zero-touch threat intelligence pipelines, automated Sigma generation, and telemetry analysis." />
+  <meta property="og:title" content="Manish Rawat | Detection Engineering Portfolio" />
+  <meta property="og:description" content="Building deterministic detection systems, telemetry pipelines, and threat intelligence automations." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://manishrawat21.github.io" />
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              cyan: '#06b6d4',
-              emerald: '#10b981',
-              dark: '#0a0d14',
-              surface: '#111726',
-              border: '#1e293b'
-            }
-          }
-        }
-      }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --card-hover: #1e293b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --green: #34d399;
+      --green-glow: rgba(52, 211, 153, 0.12);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
-  </script>
 
-  <!-- Structured Data (JSON-LD) for AI & Search Crawlers -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Manish Rawat",
-    "url": "https://manishrawat21.github.io",
-    "jobTitle": "Detection Engineer & SOC Analyst",
-    "sameAs": [
-      "https://github.com/manishrawat21",
-      "https://www.linkedin.com/in/manishrawat21",
-      "https://medium.com/@manishrawat21",
-      "https://manishrawat21.substack.com",
-      "https://tryhackme.com/p/manishrawat21"
-    ],
-    "knowsAbout": [
-      "Detection Engineering",
-      "SIEM",
-      "SOAR",
-      "Wazuh",
-      "n8n",
-      "Sysmon",
-      "Sigma Rules",
-      "MITRE ATT&CK",
-      "Threat Intelligence"
-    ]
-  }
-  </script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0 1.5rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 0;
+    }
+
+    /* Hero */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green-glow);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: var(--green);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .bio {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+
+    /* Social Bar */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      padding: 0.6rem 1.1rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--card-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0b0f19;
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      color: #0b0f19;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title::before {
+      content: '//';
+      color: var(--accent);
+      font-family: var(--font-mono);
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .skill-card h3 {
+      font-size: 0.95rem;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .project-stats {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .stack-pill {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: #93c5fd;
+      background: rgba(147, 197, 253, 0.1);
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* Publications / Recognition */
+    .recognition-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .recognition-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .recognition-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .rec-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--green);
+      background: var(--green-glow);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      height: fit-content;
+    }
+
+    .rec-content h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .rec-content p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 2.2rem; }
+      .container { padding: 2.5rem 0; }
+      .project-header { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
 </head>
-
-<body class="bg-brand-dark text-slate-300 font-sans antialiased min-h-screen selection:bg-brand-cyan/20 selection:text-brand-cyan">
-
-  <!-- Navigation -->
-  <nav class="sticky top-0 z-50 backdrop-blur-md bg-brand-dark/80 border-b border-brand-border">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#" class="font-mono text-sm tracking-widest text-slate-100 font-semibold flex items-center gap-2">
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-brand-emerald animate-pulse"></span>
-        MANISH_RAWAT.sec
-      </a>
-      <div class="flex items-center gap-6 text-sm font-mono">
-        <a href="#projects" class="hover:text-brand-cyan transition-colors">Projects</a>
-        <a href="#research" class="hover:text-brand-cyan transition-colors">Research</a>
-        <a href="#stack" class="hover:text-brand-cyan transition-colors">Stack</a>
-        <a href="https://github.com/manishrawat21" target="_blank" rel="noreferrer" class="text-xs px-3 py-1.5 rounded border border-brand-border hover:border-brand-cyan/60 text-slate-200 transition-colors">
-          GitHub ↗
-        </a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <header class="max-w-6xl mx-auto px-6 pt-20 pb-16">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-brand-surface border border-brand-border text-brand-emerald mb-6">
-      <span>●</span> Open to Detection Engineer & SOC Analyst Roles
-    </div>
+<body>
+  <div class="container">
     
-    <h1 class="text-4xl sm:text-6xl font-bold text-slate-100 tracking-tight leading-tight max-w-4xl">
-      Engineering detection pipelines that catch <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-emerald">real-world attacks</span>.
-    </h1>
-    
-    <p class="mt-6 text-lg text-slate-400 max-w-2xl leading-relaxed">
-      Security Analyst specializing in event-driven threat intelligence pipelines, adversary emulation, and production-grade Sigma rule authoring across enterprise telemetry.
-    </p>
-
-    <!-- Social & Canonical Links Bar -->
-    <div class="mt-8 flex flex-wrap items-center gap-3 font-mono text-xs">
-      <a href="https://github.com/manishrawat21" target="_blank" rel="noreferrer" class="flex items-center gap-2 px-4 py-2 rounded-md bg-brand-surface border border-brand-border hover:border-brand-cyan text-slate-200 transition-all">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/manishrawat21" target="_blank" rel="noreferrer" class="flex items-center gap-2 px-4 py-2 rounded-md bg-brand-surface border border-brand-border hover:border-brand-cyan text-slate-200 transition-all">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://manishrawat21.substack.com" target="_blank" rel="noreferrer" class="flex items-center gap-2 px-4 py-2 rounded-md bg-brand-surface border border-brand-border hover:border-brand-cyan text-slate-200 transition-all">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
-        Detection Desk
-      </a>
-      <a href="https://medium.com/@manishrawat21" target="_blank" rel="noreferrer" class="flex items-center gap-2 px-4 py-2 rounded-md bg-brand-surface border border-brand-border hover:border-brand-cyan text-slate-200 transition-all">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
-        Medium
-      </a>
-      <a href="mailto:rawatmanish21@outlook.com" class="flex items-center gap-2 px-4 py-2 rounded-md bg-brand-surface border border-brand-border hover:border-brand-cyan text-slate-200 transition-all">
-        ✉ rawatmanish21@outlook.com
-      </a>
-    </div>
-
-    <!-- Impact Counters -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-brand-border">
-      <div class="p-4 rounded-lg bg-brand-surface/50 border border-brand-border">
-        <div class="text-2xl font-bold font-mono text-slate-100">0 min</div>
-        <div class="text-xs text-slate-400 mt-1">CVE-to-Sigma Automated Triage</div>
+    <!-- Hero Section -->
+    <header>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Available for Detection Engineer / L1 SOC Roles
       </div>
-      <div class="p-4 rounded-lg bg-brand-surface/50 border border-brand-border">
-        <div class="text-2xl font-bold font-mono text-slate-100">196K+</div>
-        <div class="text-xs text-slate-400 mt-1">APT29 Telemetry Events Tested</div>
-      </div>
-      <div class="p-4 rounded-lg bg-brand-surface/50 border border-brand-border">
-        <div class="text-2xl font-bold font-mono text-slate-100">5x</div>
-        <div class="text-xs text-slate-400 mt-1">Cited in This Week In 4n6</div>
-      </div>
-      <div class="p-4 rounded-lg bg-brand-surface/50 border border-brand-border">
-        <div class="text-2xl font-bold font-mono text-slate-100">Top 3%</div>
-        <div class="text-xs text-slate-400 mt-1">Global TryHackMe Rank</div>
-      </div>
-    </div>
-  </header>
+      <h1>Manish Rawat</h1>
+      <div class="subtitle">Detection Engineer & SOC Automation Specialist</div>
+      <p class="bio">
+        Self-taught security engineer designing automated threat intelligence ingestion pipelines, authoring production-ready Sigma rules, and analyzing host/network telemetry across enterprise attack simulations.
+      </p>
 
-  <!-- Featured Projects Section -->
-  <section id="projects" class="max-w-6xl mx-auto px-6 py-16 border-t border-brand-border">
-    <div class="mb-10">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-brand-cyan mb-2">Engineering Portfolio</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-slate-100">Production Systems & Detection Logic</h3>
-    </div>
+      <!-- Verified Social Presence -->
+      <div class="social-links">
+        <a href="https://github.com/manishrawat21" target="_blank" rel="noopener" class="btn">
+          <span>GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/manishrawat21" target="_blank" rel="noopener" class="btn">
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://medium.com/@manishrawat21" target="_blank" rel="noopener" class="btn">
+          <span>Medium</span>
+        </a>
+        <a href="https://manishrawat21.substack.com" target="_blank" rel="noopener" class="btn">
+          <span>Detection Desk (Substack)</span>
+        </a>
+        <a href="mailto:rawatmanish21@outlook.com" class="btn btn-primary">
+          <span>Get in Touch</span>
+        </a>
+      </div>
+    </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-      <!-- Project 1 -->
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border flex flex-col justify-between hover:border-brand-cyan/50 transition-all">
-        <div>
-          <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
-            <span class="text-brand-emerald">SOAR / CTI Pipeline</span>
-            <span>⭐ 38+ GitHub Stars</span>
+    <!-- Technical Arsenal -->
+    <section>
+      <h2 class="section-title">Core Competencies & Stack</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>SIEM & Telemetry</h3>
+          <div class="skill-tags">
+            <span class="tag">Wazuh</span>
+            <span class="tag">Splunk SPL</span>
+            <span class="tag">Sysmon (EID 1, 3, 7, 10, 13)</span>
+            <span class="tag">Suricata IDS</span>
+            <span class="tag">ELK Stack</span>
           </div>
-          <h4 class="text-xl font-bold text-slate-100">CISA KEV Threat Intel Orchestrator</h4>
-          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-            Zero-touch event-driven orchestration pipeline that automatically pulls newly weaponized CVEs from CISA's KEV catalog, synthesizes production-ready Sigma rules via structured LLM prompt constraints, and generates SOC-audit audit trails.
+        </div>
+        <div class="skill-card">
+          <h3>SOAR & Automation</h3>
+          <div class="skill-tags">
+            <span class="tag">n8n Workflows</span>
+            <span class="tag">REST API Webhooks</span>
+            <span class="tag">Zero-Touch Ingestion</span>
+            <span class="tag">Incident Triage</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Detection Engineering</h3>
+          <div class="skill-tags">
+            <span class="tag">Sigma Rules</span>
+            <span class="tag">MITRE ATT&CK</span>
+            <span class="tag">CISA KEV</span>
+            <span class="tag">False Positive Tuning</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Threat Simulation</h3>
+          <div class="skill-tags">
+            <span class="tag">MITRE Caldera</span>
+            <span class="tag">Velociraptor</span>
+            <span class="tag">Atomic Red Team</span>
+            <span class="tag">APT29 Emulation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Production Repositories -->
+    <section>
+      <h2 class="section-title">Featured Production Proof-of-Work</h2>
+      <div class="projects-grid">
+
+        <!-- CISA KEV Orchestrator -->
+        <a href="https://github.com/manishrawat21/Cisa-KEV-Threat-Intel-Orchestrator" target="_blank" rel="noopener" class="project-card">
+          <div class="project-header">
+            <div class="project-title">CISA KEV Threat Intel Orchestrator</div>
+            <div class="project-stats">40+ Stars ⭐</div>
+          </div>
+          <p class="project-desc">
+            A zero-touch pipeline that polls CISA's Known Exploited Vulnerabilities catalog, filters weaponized CVEs, and uses constrained prompt engineering to automatically generate production-ready Sigma rules mapped to MITRE ATT&CK. Reduced CVE triage from 4–6 hours to under 3 minutes.
           </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">n8n</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Gemini API</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Sigma Rules</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">CISA KEV</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Sysmon</span>
+          <div class="project-stack">
+            <span class="stack-pill">n8n</span>
+            <span class="stack-pill">CISA KEV API</span>
+            <span class="stack-pill">Sigma YAML</span>
+            <span class="stack-pill">Sysmon</span>
+            <span class="stack-pill">Automation</span>
           </div>
-        </div>
-        <div class="mt-6 pt-4 border-t border-brand-border/60 flex items-center justify-between">
-          <span class="text-xs text-slate-400">Reduces triage from 4-6 hours to 0 min</span>
-          <a href="https://github.com/manishrawat21/Cisa-KEV-Threat-Intel-Orchestrator" target="_blank" rel="noreferrer" class="text-xs font-mono text-brand-cyan hover:underline flex items-center gap-1">
-            View Code ↗
-          </a>
-        </div>
-      </div>
+        </a>
 
-      <!-- Project 2 -->
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border flex flex-col justify-between hover:border-brand-cyan/50 transition-all">
-        <div>
-          <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
-            <span class="text-brand-cyan">End-to-End SOC Automation</span>
-            <span>Architecture & Lab</span>
+        <!-- SOC Automation Lab -->
+        <a href="https://github.com/manishrawat21/soc-automation-lab" target="_blank" rel="noopener" class="project-card">
+          <div class="project-header">
+            <div class="project-title">End-to-End SOC Automation Lab</div>
+            <div class="project-stats">Production Architecture</div>
           </div>
-          <h4 class="text-xl font-bold text-slate-100">Autonomous SOC Automation Lab</h4>
-          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-            Practical enterprise detection lifecycle simulating adversary attacks via MITRE Caldera, ingesting real-time endpoint telemetry into Wazuh, automating alert enrichment via n8n DAG webhooks, and triggering Velociraptor for forensic triage.
+          <p class="project-desc">
+            Full incident lifecycle lab orchestrating Wazuh EDR, n8n webhook triggers, MITRE Caldera adversary emulation, and Velociraptor endpoint triage. Demonstrates automated detection, payload enrichment, alert volume throttling, and host containment.
           </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Wazuh EDR/SIEM</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">n8n Webhooks</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">MITRE Caldera</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Velociraptor</span>
+          <div class="project-stack">
+            <span class="stack-pill">Wazuh EDR</span>
+            <span class="stack-pill">n8n SOAR</span>
+            <span class="stack-pill">Caldera</span>
+            <span class="stack-pill">Velociraptor</span>
           </div>
-        </div>
-        <div class="mt-6 pt-4 border-t border-brand-border/60 flex items-center justify-between">
-          <span class="text-xs text-slate-400">Detection → Enrich → Forensics</span>
-          <a href="https://github.com/manishrawat21/soc-automation-lab" target="_blank" rel="noreferrer" class="text-xs font-mono text-brand-cyan hover:underline flex items-center gap-1">
-            View Lab ↗
-          </a>
-        </div>
-      </div>
+        </a>
 
-      <!-- Project 3 -->
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border flex flex-col justify-between hover:border-brand-cyan/50 transition-all">
-        <div>
-          <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
-            <span class="text-brand-emerald">Detection Engineering</span>
-            <span>Tested on Attack Data</span>
+        <!-- Detection Rules & APT29 Analysis -->
+        <a href="https://github.com/manishrawat21/Detection-Rules" target="_blank" rel="noopener" class="project-card">
+          <div class="project-header">
+            <div class="project-title">APT29 Detection Rules & Telemetry Triage</div>
+            <div class="project-stats">196K+ Events Analyzed</div>
           </div>
-          <h4 class="text-xl font-bold text-slate-100">APT29 Validated Detection Rules</h4>
-          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-            Custom Sigma detection rules converted to Splunk SPL targeting adversary behaviors observed during APT29 emulation. Validated against Sysmon Process Creation (EventID 1), Process Access (EventID 10), and Named Pipes.
+          <p class="project-desc">
+            Production-validated Sigma rules and Splunk SPL queries built by analyzing 196,071 real-world telemetry events. Focuses on stealthy execution techniques, including PowerShell encoded commands, named pipe backdoors, and process tree tracing.
           </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Splunk SPL</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Sigma Specification</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">MITRE T1059</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Sysmon</span>
+          <div class="project-stack">
+            <span class="stack-pill">Splunk SPL</span>
+            <span class="stack-pill">Sysmon EID 1 & 10</span>
+            <span class="stack-pill">Sigma</span>
+            <span class="stack-pill">MITRE T1059.001</span>
           </div>
-        </div>
-        <div class="mt-6 pt-4 border-t border-brand-border/60 flex items-center justify-between">
-          <span class="text-xs text-slate-400">Tested on 196K+ log events</span>
-          <a href="https://github.com/manishrawat21/Detection-Rules" target="_blank" rel="noreferrer" class="text-xs font-mono text-brand-cyan hover:underline flex items-center gap-1">
-            View Rules ↗
-          </a>
-        </div>
-      </div>
+        </a>
 
-      <!-- Project 4 -->
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border flex flex-col justify-between hover:border-brand-cyan/50 transition-all">
-        <div>
-          <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-4">
-            <span class="text-brand-cyan">SIEM Ingestion Lab</span>
-            <span>Network & Host Telemetry</span>
+        <!-- ELK SOC Lab Setup -->
+        <a href="https://github.com/manishrawat21/ELK-SOC-lab-setup" target="_blank" rel="noopener" class="project-card">
+          <div class="project-header">
+            <div class="project-title">ELK Stack SOC Lab Implementation</div>
+            <div class="project-stats">Engineering Documentation</div>
           </div>
-          <h4 class="text-xl font-bold text-slate-100">ELK & Suricata SOC Pipeline</h4>
-          <p class="mt-3 text-sm text-slate-400 leading-relaxed">
-            Production lab environment ingesting network packet logs via Suricata IDS alongside Filebeat crawler ingestion into Elasticsearch. Details real-world troubleshooting of `eve.json` parsing and ingestion bottlenecks.
+          <p class="project-desc">
+            Hands-on implementation guide detailing the deployment of an Elastic Stack environment for network threat monitoring, including Filebeat crawler troubleshooting, Suricata eve.json ingestion, and index lifecycle configuration.
           </p>
-          <div class="mt-4 flex flex-wrap gap-2 text-xs font-mono">
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Elasticsearch</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Suricata IDS</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Filebeat</span>
-            <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">Kibana</span>
+          <div class="project-stack">
+            <span class="stack-pill">Elasticsearch</span>
+            <span class="stack-pill">Logstash</span>
+            <span class="stack-pill">Kibana</span>
+            <span class="stack-pill">Filebeat</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Recognition & Publications -->
+    <section>
+      <h2 class="section-title">Industry Recognition & Writing</h2>
+      <div class="recognition-box">
+        <div class="recognition-item">
+          <span class="rec-badge">Featured 5x</span>
+          <div class="rec-content">
+            <h4>This Week In 4n6 (Phill Moore)</h4>
+            <p>Multiple research papers curated in the premier DFIR weekly digest alongside Tenable, Tanium, and Team Cymru.</p>
           </div>
         </div>
-        <div class="mt-6 pt-4 border-t border-brand-border/60 flex items-center justify-between">
-          <span class="text-xs text-slate-400">Deep Packet & Pipeline Triage</span>
-          <a href="https://github.com/manishrawat21/ELK-SOC-lab-setup" target="_blank" rel="noreferrer" class="text-xs font-mono text-brand-cyan hover:underline flex items-center gap-1">
-            View Setup ↗
-          </a>
+        <div class="recognition-item">
+          <span class="rec-badge">Top 3%</span>
+          <div class="rec-content">
+            <h4>TryHackMe Global Ranking</h4>
+            <p>Demonstrated practical hands-on proficiency across network defense, threat hunting, and security operations rooms.</p>
+          </div>
+        </div>
+        <div class="recognition-item">
+          <span class="rec-badge">Author</span>
+          <div class="rec-content">
+            <h4>Detection Desk & Medium Publications</h4>
+            <p>Deep-dive research published across <em>System Weakness</em> and <em>OSINT Team</em> covering LOLBins, AST parsing, and SOC alert fatigue.</p>
+          </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- Footer -->
+    <footer>
+      <div>Manish Rawat &copy; 2026. Hosted on GitHub Pages.</div>
+      <div>Delhi, India &bull; Open to Remote</div>
+    </footer>
 
-  <!-- Publications & Industry Recognition -->
-  <section id="research" class="max-w-6xl mx-auto px-6 py-16 border-t border-brand-border">
-    <div class="mb-10">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-brand-cyan mb-2">Peer Validation & Research</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-slate-100">Featured Publications & Threat Research</h3>
-    </div>
-
-    <div class="space-y-4">
-      
-      <!-- Curation Item 1 -->
-      <div class="p-5 rounded-lg bg-brand-surface/40 border border-brand-border hover:border-slate-600 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="text-xs font-mono text-brand-emerald">Curated in This Week In 4n6 (Phill Moore)</div>
-          <h4 class="text-base font-semibold text-slate-100 mt-1">Hunting APT29: Process Tree Forensics & EventID 1 Analysis</h4>
-          <p class="text-xs text-slate-400 mt-1">Curated alongside enterprise analysis from Tenable, OX Security, and Team Cymru.</p>
-        </div>
-        <a href="https://manishrawat21.substack.com" target="_blank" rel="noreferrer" class="shrink-0 text-xs font-mono text-brand-cyan hover:underline">
-          Read on Detection Desk ↗
-        </a>
-      </div>
-
-      <!-- Curation Item 2 -->
-      <div class="p-5 rounded-lg bg-brand-surface/40 border border-brand-border hover:border-slate-600 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="text-xs font-mono text-brand-cyan">Published in System Weakness</div>
-          <h4 class="text-base font-semibold text-slate-100 mt-1">Why Most 'Threat Hunts' Are Just Expensive Fishing Expeditions</h4>
-          <p class="text-xs text-slate-400 mt-1">Syndicated across the infosec Fediverse alongside reports from Cisco Talos and Huntress.</p>
-        </div>
-        <a href="https://medium.com/@manishrawat21" target="_blank" rel="noreferrer" class="shrink-0 text-xs font-mono text-brand-cyan hover:underline">
-          Read on Medium ↗
-        </a>
-      </div>
-
-      <!-- Curation Item 3 -->
-      <div class="p-5 rounded-lg bg-brand-surface/40 border border-brand-border hover:border-slate-600 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="text-xs font-mono text-brand-emerald">Published in OSINT Team</div>
-          <h4 class="text-base font-semibold text-slate-100 mt-1">Logs, Sweat, and Suricata: Building a Real-Time Threat Hunting Engine</h4>
-          <p class="text-xs text-slate-400 mt-1">Practical breakdown of network security monitoring, packet inspection, and alert tuning.</p>
-        </div>
-        <a href="https://medium.com/@manishrawat21" target="_blank" rel="noreferrer" class="shrink-0 text-xs font-mono text-brand-cyan hover:underline">
-          Read on Medium ↗
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Technical Competencies & Stack -->
-  <section id="stack" class="max-w-6xl mx-auto px-6 py-16 border-t border-brand-border">
-    <div class="mb-10">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-brand-cyan mb-2">Technical Taxonomy</h2>
-      <h3 class="text-2xl sm:text-3xl font-bold text-slate-100">Skills & Architecture Stack</h3>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border">
-        <h4 class="text-sm font-bold text-slate-100 uppercase tracking-wider mb-4 text-brand-cyan">Detection & SIEM</h4>
-        <ul class="space-y-2.5 text-slate-300">
-          <li>• Sigma Rule Specification</li>
-          <li>• Wazuh EDR / SIEM</li>
-          <li>• Splunk SPL & Correlation</li>
-          <li>• Elastic Stack (ELK)</li>
-          <li>• Sysmon Telemetry (1, 3, 7, 10, 13)</li>
-          <li>• Suricata IDS Packet Analysis</li>
-        </ul>
-      </div>
-
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border">
-        <h4 class="text-sm font-bold text-slate-100 uppercase tracking-wider mb-4 text-brand-emerald">SOAR & Orchestration</h4>
-        <ul class="space-y-2.5 text-slate-300">
-          <li>• n8n Workflow Automation</li>
-          <li>• Webhook Pipeline Architecture</li>
-          <li>• CISA KEV Threat Intel Ingestion</li>
-          <li>• Velociraptor Endpoint Artifacts</li>
-          <li>• MITRE Caldera Emulation</li>
-          <li>• LLM-Constrained Rule Synthesis</li>
-        </ul>
-      </div>
-
-      <div class="p-6 rounded-xl bg-brand-surface border border-brand-border">
-        <h4 class="text-sm font-bold text-slate-100 uppercase tracking-wider mb-4 text-slate-200">Standards & Credentials</h4>
-        <ul class="space-y-2.5 text-slate-300">
-          <li>• MITRE ATT&CK Framework</li>
-          <li>• CompTIA Security+ Certified</li>
-          <li>• Certified Ethical Hacker (CEH)</li>
-          <li>• TryHackMe (Top 3% Globally)</li>
-          <li>• SOC 2 / ISO 27001 Evidence Trails</li>
-          <li>• 24/7 Incident Triage & Escalation</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer / Contact CTA -->
-  <footer class="border-t border-brand-border bg-brand-surface/30 py-16">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
-      <div>
-        <h4 class="text-xl font-bold text-slate-100">Ready to expand your detection coverage?</h4>
-        <p class="text-sm text-slate-400 mt-1">Open to Detection Engineering, SOC Analysis, and Threat Intel opportunities.</p>
-      </div>
-      <div class="flex items-center gap-4 font-mono text-xs">
-        <a href="mailto:rawatmanish21@outlook.com" class="px-5 py-3 rounded-lg bg-brand-cyan text-brand-dark font-bold hover:bg-brand-cyan/90 transition-all">
-          Get in Touch
-        </a>
-        <a href="https://www.linkedin.com/in/manishrawat21" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-lg border border-brand-border hover:border-slate-500 text-slate-200 transition-all">
-          Connect on LinkedIn
-        </a>
-      </div>
-    </div>
-    <div class="max-w-6xl mx-auto px-6 mt-12 pt-6 border-t border-brand-border/40 text-center text-xs font-mono text-slate-400">
-      Designed for <a href="https://github.com/manishrawat21" class="text-slate-400 hover:text-brand-cyan">manishrawat21</a>. Hosted on GitHub Pages.
-    </div>
-  </footer>
-
+  </div>
 </body>
 </html>
